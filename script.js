@@ -56,18 +56,23 @@ cartIcon.addEventListener("click", () => {
 function updateCart() {
     cartContainer.innerHTML = `
             <div class="cart-container-items">
+                ${cart.length == 0 ? "No hay productos en tu carrito" : ""}
                 ${cart.map(product => `
-                    <div class="cart-item">
-                        <img src="${product.image}" alt="${product.title}">
-                        <h3>${product.title.slice(0, 20)}</h3>
+                    <div class="cart-item aparecer" data-id="${product.id}">
+                        <img src="${product.image}" alt="${product.title}" class="cart-item-img">
+                        <h3 class=""cart-item-title>${product.title.slice(0, 20)}${product.title.length > 20 ? "..." : ""}</h3>
                         <span class="cart-item-price">$ ${product.price}</span>
-                        <button class="remove-button" data-id="${product.id}" onclick="removeItem(${product.id})">Eliminar</button>
+                        <button class="remove-button" data-id="${product.id}" onclick="removeItem(${product.id})"><img src="icons/trash.svg" alt="eliminar" class="trash-icon"></button>
                     </div>
                 `).join('')}
             </div>
+            <div class="cart-container-discount">
+                <img src="icons/percent.svg" alt="descuento" class="discount-icon">
+                <input type="text" placeholder="Ingrese su cupon" class="discount-input">
+                <button id="apply-discount-button">Aplicar descuento</button>
+            </div>
             <div class="cart-container-total">
-                <h3>Total</h3>
-                <span class="cart-total-price">$ ${total}</span>
+                <span class="cart-total-price">TOTAL = $${total.toFixed(2)}</span>
             </div>
         `
 }
@@ -81,5 +86,8 @@ function addItem(id) {
 function removeItem(id) {
     cart = cart.filter(product => product.id !== id);
     total = total - products.find(product => product.id === id).price;
+    if (cart.length == 0) {
+        total = 0;
+    }
     updateCart();
 }
