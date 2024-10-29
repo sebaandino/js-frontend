@@ -1,0 +1,22 @@
+[
+    {
+        "nombre": "Lucía G.",
+        "imgUrl": "https://th.bing.com/th/id/R.c133a0a2fc1f32885eafd9d12cc1e08d?rik=VGsOCoe8hZulQg&pid=ImgRaw&r=0",
+        "testimonio": "¡Me encanta esta tienda! Siempre encuentro lo que busco y los envíos son súper rápidos. La atención al cliente es excelente."
+    },
+    {
+        "nombre": "Pablo R.",
+        "imgUrl":"https://www.pngarts.com/files/3/Happy-Men-PNG-High-Quality-Image.png",
+        "testimonio": "He comprado varias veces y nunca me decepcionan. Los precios son competitivos y los productos son de buena calidad. ¡Muy recomendado!"
+    },
+    {
+        "nombre": "Martina S.",
+        "imgUrl": "https://international-coaching-institute.com/wp-content/uploads/2019/01/Contact-us-01-400x460.png",
+        "testimonio": "Es mi sitio favorito para hacer compras online. Tienen una gran variedad y siempre me sorprenden con sus ofertas."
+    },
+    {
+        "nombre": "Carlos M.",
+        "imgUrl": "https://th.bing.com/th/id/R.42f7fd526cc94b557961a7d3f4d41994?rik=cQ4oHiZjJolBYA&pid=ImgRaw&r=0",
+        "testimonio": "Todo fue muy sencillo. Hice el pedido en minutos y me llegó antes de lo esperado. Además, la página es fácil de navegar."
+    }
+]
