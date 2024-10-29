@@ -354,7 +354,6 @@ body {
     padding: 10px;
     border-radius: 20px;
     color: #130b0e;
-    font-size: 1.2rem;
     transition: color .3s ease-in-out, background-color .3s ease-in-out , scale .3s ease-in-out;
 }
 
@@ -362,6 +361,50 @@ body {
     background-color: var(--flame);
     color: #fff;
     scale: 1.1;
+}
+
+/* cart-container */
+
+.cart-container {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    padding: 30px;
+    color: #f1f1f1;
+}
+
+.cart-container-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--eerie-black);
+    border-radius:20px;
+    padding: 20px;
+    user-select: none;
+    color: var(--eerie-black);
+}
+
+.cart-total-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--eerie-black);
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
 }
 
 /* reseñas-section */
