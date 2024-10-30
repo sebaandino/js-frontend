@@ -453,7 +453,24 @@ body {
         padding: 10px;
         transition: all .3s ease-in-out;
     }
+}
 
+.discount-msg {
+    font-size: .8rem;
+}
+
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-container-total {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-cart-icon {
+    cursor: pointer;
 }
 
 /* reseñas-section */

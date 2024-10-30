@@ -1,7 +1,22 @@
 const products = [];
 let cart = [];
 let total = 0;
+let totalWithDiscount = 0;
+let lastDiscountApplied = 0;
+let discountAplyed = false;
 let cartContainer = document.querySelector('.cart-container');
+
+let cartLocalStorage = localStorage.getItem('cart');
+if (cartLocalStorage) {
+    cart = JSON.parse(cartLocalStorage);
+}
+
+let totalLocalStorage = localStorage.getItem('total');
+if (totalLocalStorage) {
+    total = parseFloat(totalLocalStorage);
+}
+
+updateCart();
 
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
@@ -69,17 +84,26 @@ function updateCart() {
             <div class="cart-container-discount">
                 <img src="icons/percent.svg" alt="descuento" class="discount-icon">
                 <input type="text" placeholder="Ingrese su cupon" class="discount-input">
-                <button id="apply-discount-button">Aplicar descuento</button>
+                <button id="apply-discount-button" onclick="applyDiscount()">Aplicar</button>
             </div>
-            <div class="cart-container-total">
-                <span class="cart-total-price">TOTAL = $${total.toFixed(2)}</span>
+                <span class="discount-alert"></span>
+                <span class="discount-msg"> Los descuentos se pueden aplicar a partir de $1000 </span>
+            <div class="cart-footer">
+                <div class="cart-container-total">
+                    <span class="cart-total-price">TOTAL = $${total.toFixed(2)}</span>
+                    <span class="cart-total-price hidden">TOTAL CON DESCUENTO= $${discountAplyed ? totalWithDiscount : ""}</span>
+                </div>
+                <button class="remove-button" onclick="clearCart()"><img src="icons/deleteCart.svg" alt="eliminar carrito" class="delete-cart-icon"></button>
             </div>
         `
+
 }
 
 function addItem(id) {
     cart.push(products.find(product => product.id === id));
     total += products.find(product => product.id === id).price;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total);
     updateCart();
 }
 
@@ -89,5 +113,43 @@ function removeItem(id) {
     if (cart.length == 0) {
         total = 0;
     }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total);
+
+    updateCart();
+}
+
+function applyDiscount() {
+    const input = document.querySelector('.discount-input');
+    const discount = parseFloat(input.value);
+    const msg = document.querySelector('.discount-msg');
+    const alertMsg = document.querySelector('.discount-alert');
+
+    if (discount > 20) {
+        msg.textContent = "No puedes aplicar un descuento mayor a 20%";
+        return;
+    }
+
+    if (total < 400) {
+        msg.textContent = "El total de tu carrito es menor a $400";
+        return;
+    }
+
+    totalWithDiscount = total - lastDiscountApplied;
+    lastDiscountApplied = discount;
+    discountAplyed = true;
+    alertMsg.classList.toggle("hidden");
+    msg.textContent = "Descuento aplicado con exito";
+    alertMsg.textContent = "El descuento aplicado es de " + discount + "%";
+
+}
+
+function clearCart() {
+    cart = [];
+    total = 0;
+    lastDiscountApplied = 0;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total);
+    localStorage.setItem('lastDiscountApplied', lastDiscountApplied);
     updateCart();
 }
