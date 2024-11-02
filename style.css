@@ -270,6 +270,65 @@ body {
     }
 }
 
+/* productos-tendendias */
+
+.tendencias-section {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    width: 100%;
+}
+
+.producto-tendencia{
+    animation-name: moveItem;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    text-align: center;
+    width: 160px;
+    border-radius: 20px;
+    padding: 10px;
+    gap: 10px;
+    font-size: .8rem;
+    box-shadow: 0 2px 4px var(--eerie-black);
+    position: relative;
+    right: 100%;
+
+    & h3 {
+        font-weight: 600;
+    }
+
+    & span {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--eerie-black);
+    }
+}
+
+@keyframes moveItem {
+    to{
+        right: 0%;
+    }
+}
+
+.producto-tendencia img {
+    width: 100px;
+    height: 100px;
+    image-rendering: pixelated;
+    object-fit: contain;
+    transition: scale .3s ease-in-out;
+}
+
 /* produtos-section */
 .productos-section {
     display: grid;
@@ -477,11 +536,11 @@ body {
 .reseñas-section {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
     scroll-behavior: smooth;
-    padding: 30px;
     color: #f1f1f1;
+    width: 100%;
+    margin-top: 20px;
 
     & h3 {
         font-weight: 600;
@@ -493,11 +552,10 @@ body {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    justify-content: center;
+    gap: 30px;
     justify-items: center;
     align-items: center;
-    gap: 30px;
-    padding: 10px;
+    margin-block: 30px;
 }
 
 .reseña {

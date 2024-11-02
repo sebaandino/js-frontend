@@ -24,7 +24,25 @@ fetch('https://fakestoreapi.com/products')
         products.push(...data);
         const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
 
+        const tendenciasContainer = document.querySelector('.tendencias-section');
+
+        data.forEach(product => {
+            const producto = document.createElement('div');
+            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+            producto.classList.add('producto-tendencia');
+            producto.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h3>${product.title}</h3>
+                        <span class="producto-price">$ ${product.price}${emojiAleatorio} </span> 
+                        <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
+                        <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
+                    `;
+            tendenciasContainer.appendChild(producto);
+
+        });
+
         const container = document.querySelector('.productos-section');
+
         data.forEach(product => {
             const producto = document.createElement('div');
             const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
@@ -86,12 +104,11 @@ function updateCart() {
                 <input type="text" placeholder="Ingrese su cupon" class="discount-input">
                 <button id="apply-discount-button" onclick="applyDiscount()">Aplicar</button>
             </div>
-                <span class="discount-alert"></span>
-                <span class="discount-msg"> Los descuentos se pueden aplicar a partir de $1000 </span>
+                <span class="discount-msg"> Los descuentos se pueden aplicar a partir de $400 </span>
             <div class="cart-footer">
                 <div class="cart-container-total">
                     <span class="cart-total-price">TOTAL = $${total.toFixed(2)}</span>
-                    <span class="cart-total-price hidden">TOTAL CON DESCUENTO= $${discountAplyed ? totalWithDiscount : ""}</span>
+                    <span class="cart-total-price hidden" id="discount-alert">TOTAL CON DESCUENTO= $</span>
                 </div>
                 <button class="remove-button" onclick="clearCart()"><img src="icons/deleteCart.svg" alt="eliminar carrito" class="delete-cart-icon"></button>
             </div>
@@ -123,7 +140,7 @@ function applyDiscount() {
     const input = document.querySelector('.discount-input');
     const discount = parseFloat(input.value);
     const msg = document.querySelector('.discount-msg');
-    const alertMsg = document.querySelector('.discount-alert');
+    const alertMsg = document.getElementById('discount-alert');
 
     if (discount > 20) {
         msg.textContent = "No puedes aplicar un descuento mayor a 20%";
@@ -135,13 +152,17 @@ function applyDiscount() {
         return;
     }
 
-    totalWithDiscount = total - lastDiscountApplied;
-    lastDiscountApplied = discount;
-    discountAplyed = true;
-    alertMsg.classList.toggle("hidden");
-    msg.textContent = "Descuento aplicado con exito";
-    alertMsg.textContent = "El descuento aplicado es de " + discount + "%";
+    if (discountAplyed) {
+        msg.textContent = "Ya has aplicado un descuento anteriormente";
+        return;
+    }
 
+    discountAplyed = true;
+    lastDiscountApplied = discount;
+    totalWithDiscount = total - discount;
+    alertMsg.classList.toggle("hidden");
+    alertMsg.insertAdjacentText('beforeend', totalWithDiscount.toFixed(2));
+    msg.textContent = "Descuento aplicado con exito";
 }
 
 function clearCart() {
