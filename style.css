@@ -409,6 +409,13 @@ body {
 
 /* form search */
 
+.buscar-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+}
+
     .buscar-form {
         display: flex;
         gap: 10px;

@@ -5,6 +5,8 @@ let totalWithDiscount = 0;
 let lastDiscountApplied = 0;
 let discountAplyed = false;
 let cartContainer = document.querySelector('.cart-container');
+const productsContainer = document.querySelector('.productos-section');
+const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
 
 let cartLocalStorage = localStorage.getItem('cart');
 if (cartLocalStorage) {
@@ -20,46 +22,43 @@ updateCart();
 loadProducts();
 
 function loadProducts() {
-fetch('https://fakestoreapi.com/products')
-    .then(res => res.json())
-    .then(data => {
-        products.push(...data);
-        const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
+    fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(data => {
+            products.push(...data);
 
-        const tendenciasContainer = document.querySelector('.tendencias-section');
+            const tendenciasContainer = document.querySelector('.tendencias-section');
 
-        data.forEach(product => {
-            const producto = document.createElement('div');
-            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
-            producto.classList.add('producto-tendencia');
-            producto.innerHTML = `
+            data.forEach(product => {
+                const producto = document.createElement('div');
+                const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+                producto.classList.add('producto-tendencia');
+                producto.innerHTML = `
                         <img src="${product.image}" alt="${product.title}">
                         <h3>${product.title}</h3>
                         <span class="producto-price">$ ${product.price}${emojiAleatorio} </span> 
                         <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
                         <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
                     `;
-            tendenciasContainer.appendChild(producto);
+                tendenciasContainer.appendChild(producto);
 
-        });
+            });
 
-        const container = document.querySelector('.productos-section');
-
-        data.forEach(product => {
-            const producto = document.createElement('div');
-            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
-            producto.classList.add('producto');
-            producto.dataset.id = product.id;
-            producto.innerHTML = `
+            data.forEach(product => {
+                const producto = document.createElement('div');
+                const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+                producto.classList.add('producto');
+                producto.dataset.id = product.id;
+                producto.innerHTML = `
                         <img src="${product.image}" alt="${product.title}">
                         <h3>${product.title}</h3>
                         <span class="producto-price">$ ${product.price}${emojiAleatorio} </span> 
                         <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
                         <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
                     `;
-            container.appendChild(producto);
+                productsContainer.appendChild(producto);
+            });
         });
-    });
 }
 
 const testimonios = fetch('testimonios.json')
@@ -187,14 +186,8 @@ const buscarForm = document.querySelector('.buscar-form');
 buscarButton.addEventListener("click", (e) => {
     e.preventDefault();
     const buscarInputValue = buscarInput.value;
-    
-    const container = document.querySelector('.productos-section');
-    const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
-
-
-    container.innerHTML = "";
+    productsContainer.innerHTML = "";
     products.forEach(product => {
-
 
         if (product.title.toLowerCase().includes(buscarInputValue.toLowerCase())) {
             const producto = document.createElement('div');
@@ -208,13 +201,27 @@ buscarButton.addEventListener("click", (e) => {
                         <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
                         <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
                     `;
-                    
-            container.appendChild(producto);
+            productsContainer.appendChild(producto);
         }
     });
-
-
 });
 
+function reloadProducts() {
+    productsContainer.innerHTML = '';
+    products.forEach(product => {
+        const producto = document.createElement('div');
+        const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+        producto.classList.add('producto');
+        producto.dataset.id = product.id;
+        producto.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h3>${product.title}</h3>
+                        <span class="producto-price">$ ${product.price}${emojiAleatorio} </span> 
+                        <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
+                        <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
+                    `;
+        productsContainer.appendChild(producto);
+    });
+};
 
 
