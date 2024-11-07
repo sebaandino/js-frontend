@@ -17,7 +17,9 @@ if (totalLocalStorage) {
 }
 
 updateCart();
+loadProducts();
 
+function loadProducts() {
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(data => {
@@ -58,6 +60,7 @@ fetch('https://fakestoreapi.com/products')
             container.appendChild(producto);
         });
     });
+}
 
 const testimonios = fetch('testimonios.json')
     .then(res => res.json())
@@ -174,3 +177,44 @@ function clearCart() {
     localStorage.setItem('lastDiscountApplied', lastDiscountApplied);
     updateCart();
 }
+
+// BUSCAR FUNCTION
+
+const buscarInput = document.querySelector('.buscar-input');
+const buscarButton = document.querySelector('.buscar-button');
+const buscarForm = document.querySelector('.buscar-form');
+
+buscarButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const buscarInputValue = buscarInput.value;
+    
+    const container = document.querySelector('.productos-section');
+    const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
+
+
+    container.innerHTML = "";
+    products.forEach(product => {
+
+
+        if (product.title.toLowerCase().includes(buscarInputValue.toLowerCase())) {
+            const producto = document.createElement('div');
+            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+            producto.classList.add('producto');
+            producto.dataset.id = product.id;
+            producto.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h3>${product.title}</h3>
+                        <span class="producto-price">$ ${product.price}${emojiAleatorio} </span> 
+                        <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
+                        <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
+                    `;
+                    
+            container.appendChild(producto);
+        }
+    });
+
+
+});
+
+
+

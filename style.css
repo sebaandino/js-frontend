@@ -154,7 +154,7 @@ html {
     background-image: linear-gradient(158deg, #252422ff 0%, #403d39ff 50%, #384a59 100%);
     background-attachment: fixed;
     scroll-behavior: smooth;
-
+    box-sizing: border-box;
 }
 
 body {
@@ -235,6 +235,7 @@ body {
     animation-range-start: entry 15%;
     animation-range-end: contain 50%;
     opacity: 1;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1000px) {
@@ -337,6 +338,22 @@ body {
 
 /* productos-tendendias */
 
+.title-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.producto-title {
+    font-size: 2rem;
+    color: var(--flame);
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 4px;
+    margin-bottom: 30px;
+    color: #f1f1f1;
+}
+
 .tendencias-section {
     display: flex;
     width: 90%;
@@ -389,6 +406,47 @@ body {
     object-fit: contain;
     transition: scale .3s ease-in-out;
 }
+
+/* form search */
+
+    .buscar-form {
+        display: flex;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .buscar-input {
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        width: 200px;
+        text-align: center;
+        transition: border-bottom .2s ease-in-out;
+
+        &:focus {
+            border-bottom: var(--flame) 2px solid;
+            outline: none;
+        }
+
+        &::placeholder {
+            color: var(--eerie-black);
+            font-size: .7rem;
+        }
+    }
+
+    .buscar-button {
+        background-color: var(--eerie-black);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
+        transition: all .3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--flame);
+        }
+    }
 
 /* produtos-section */
 .productos-section {
