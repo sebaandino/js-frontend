@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Products Store Andino Elias</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon_io/favicon.ico" type="image/x-icon">
 </head>
-
 <body>
     <header class="header">
         <nav class="header-nav">
@@ -20,78 +19,89 @@
             </ul>
         </nav>
         <div class="header-icons">
-            <img src="icons/cart.svg" alt="ver Carrito" id="cart-icon">
+            <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
             <a href="#">
-                <img src="icons/profile.svg" alt="perfil" class="header-profile">
+                <img src="icons/profile.svg" alt="Icono del perfil" class="header-profile">
             </a>
         </div>
         <div class="cart-container hidden">
             <h3>Carrito</h3>
             <h4>No hay productos en tu carrito</h4>
         </div>
+        <dialog id="confirmationDialog">
+            <p>¿Estás seguro de que deseas vaciar el carrito?</p>
+            <div>
+                <button id="confirmClearCart">Confirmar</button>
+                <button id="cancelClearCart">Cancelar</button>
+            </div>
+        </dialog>
     </header>
-    <div class="image-to-header">
-
-    </div>
+    
+    <div class="image-to-header"></div>
+    
     <main>
         <section class="principal-section" id="principal">
-            <!-- <img src="images/logo.png" alt="logo" class="principal-section-logo"> -->
             <div class="principal-section-titles">
                 <h1>Products Store</h1>
                 <h2>"Todo lo que necesitas, en un solo lugar."</h2>
             </div>
         </section>
-        <div class="title-container">
-            <h2 class="producto-title">tendencias</h2>
+        
+        <!-- <div class="title-container">
+            <h2 class="producto-title">Tendencias</h2>
         </div>
-        <section class="tendencias-section" id="tendencias">
-
-        </section>
+        <section class="tendencias-section" id="tendencias"></section>
+        
         <div class="title-container">
             <h2 class="producto-title">Todos Nuestros Productos</h2>
-        </div>
+        </div> -->
+        
         <div class="buscar-container">
-            <form action="" class="buscar-form">
-                <input type="text" placeholder="Buscar producto" class="buscar-input">
+            <form action="" class="buscar-form" role="search">
+                <label for="buscar-input" class="visually-hidden">Buscar producto</label>
+                <input type="text" id="buscar-input" placeholder="Buscar producto" class="buscar-input" aria-label="Buscar producto">
                 <button type="submit" class="buscar-button">Buscar</button>
             </form>
-            <button onclick="reloadProducts()" class="buscar-button">Restablecer</button>
+            <!-- <button onclick="reloadProducts()" class="buscar-button">Restablecer</button> -->
         </div>
-        <section class="productos-section" id="productos">
-
-        </section>
+        
+        <section class="productos-section" id="productos"></section>
+        
         <section class="reseñas-section" id="reseñas">
-            <h3>Reseñas de nuetros compradores </h3>
-            <div class="reseñas-section-container">
-
-            </div>
+            <h3>Reseñas de nuestros compradores</h3>
+            <div class="reseñas-section-container"></div>
         </section>
+        
         <section class="contacto-section" id="contacto">
             <h4>Dejanos tu sugerencia</h4>
             <form action="https://formspree.io/f/xbljlwwg" method="POST" class="formulario-msg">
-                <!-- <label for="nombre">Nombre:</label> -->
-                <input type="text" id="name" name="nombre" placeholder="Nombre">
-                <!-- <label for="email">Email:</label> -->
-                <input type="email" id="email" name="email" placeholder="Email">
-                <!-- <label for="mensaje">Mensaje:</label> -->
-                <textarea id="mensaje" name="message" placeholder="Mensaje"></textarea>
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="nombre" placeholder="Nombre" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="message" placeholder="Mensaje" required></textarea>
+                
                 <div class="formulario-msg-btn">
-                    <button id="clean-form">Limpiar</button>
+                    <button id="clean-form" type="reset">Limpiar</button>
                     <button type="submit">Enviar</button>
                 </div>
             </form>
         </section>
     </main>
+    
     <footer class="footer">
         <p>© Andino Elias 2024</p>
         <a href="https://github.com/sebaandino" target="_blank" rel="noopener noreferrer">
-            <img src="icons/github.svg" alt="github link" class="footer-icon">
+            <img src="icons/github.svg" alt="GitHub" class="footer-icon">
         </a>
         <a href="https://www.linkedin.com/in/elias-sebastian-agustin-andino" target="_blank" rel="noopener noreferrer">
-            <img src="icons/linkedin.svg" alt="linkedin link" class="footer-icon">
+            <img src="icons/linkedin.svg" alt="LinkedIn" class="footer-icon">
         </a>
     </footer>
+    
     <script src="script.js"></script>
 </body>
-
 </html>
