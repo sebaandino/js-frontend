@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon_io/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-    <header class="header">
+    <img src="icons/menu.svg" alt="Icono del menú" id="menu-icon" class="">
+    <img src="icons/close-menu.svg" alt="Icono de cerrar menú" id="close-menu-icon" class="">
+    <header class="header" id="header">
         <nav class="header-nav">
             <ul class="header-nav-list">
                 <li class="header-nav-list-item"><a href="#principal">Inicio</a></li>
@@ -19,7 +23,9 @@
             </ul>
         </nav>
         <div class="header-icons">
-            <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
+            <a>
+                <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
+            </a>
             <a href="#">
                 <img src="icons/profile.svg" alt="Icono del perfil" class="header-profile">
             </a>
@@ -36,9 +42,9 @@
             </div>
         </dialog>
     </header>
-    
+
     <div class="image-to-header"></div>
-    
+
     <main>
         <section class="principal-section" id="principal">
             <div class="animation-container">
@@ -51,7 +57,7 @@
                 <div class="text text2">Donde encontras lo que buscas</div>
             </div>
         </section>
-        
+
         <!-- <div class="title-container">
             <h2 class="producto-title">Tendencias</h2>
         </div>
@@ -60,35 +66,36 @@
         <div class="title-container">
             <h2 class="producto-title">Todos Nuestros Productos</h2>
         </div> -->
-        
+
         <div class="buscar-container">
             <form action="" class="buscar-form" role="search">
                 <label for="buscar-input" class="visually-hidden">Buscar producto</label>
-                <input type="text" id="buscar-input" placeholder="Buscar producto" class="buscar-input" aria-label="Buscar producto">
+                <input type="text" id="buscar-input" placeholder="Buscar producto" class="buscar-input"
+                    aria-label="Buscar producto">
                 <button type="submit" class="buscar-button">Buscar</button>
             </form>
             <!-- <button onclick="reloadProducts()" class="buscar-button">Restablecer</button> -->
         </div>
-        
+
         <section class="productos-section" id="productos"></section>
-        
+
         <section class="reseñas-section" id="reseñas">
             <h3>Reseñas de nuestros compradores</h3>
             <div class="reseñas-section-container"></div>
         </section>
-        
+
         <section class="contacto-section" id="contacto">
             <h4>Dejanos tu sugerencia</h4>
             <form action="https://formspree.io/f/xbljlwwg" method="POST" class="formulario-msg">
                 <label for="name">Nombre:</label>
                 <input type="text" id="name" name="nombre" placeholder="Nombre" required>
-                
+
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Email" required>
-                
+
                 <label for="mensaje">Mensaje:</label>
                 <textarea id="mensaje" name="message" placeholder="Mensaje" required></textarea>
-                
+
                 <div class="formulario-msg-btn">
                     <button id="clean-form" type="reset">Limpiar</button>
                     <button type="submit">Enviar</button>
@@ -96,7 +103,7 @@
             </form>
         </section>
     </main>
-    
+
     <footer class="footer">
         <p>© Andino Elias 2024</p>
         <a href="https://github.com/sebaandino" target="_blank" rel="noopener noreferrer">
@@ -106,7 +113,8 @@
             <img src="icons/linkedin.svg" alt="LinkedIn" class="footer-icon">
         </a>
     </footer>
-    
+
     <script src="script.js"></script>
 </body>
+
 </html>

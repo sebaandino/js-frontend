@@ -226,3 +226,23 @@ cleanForm.addEventListener('click', (e) => {
 
 loadProducts();
 updateCart();
+
+const menuIcon = document.getElementById("menu-icon");
+const closeMenuIcon = document.getElementById("close-menu-icon");
+const header = document.getElementById("header");
+
+menuIcon.addEventListener("click", () => {
+        
+    header.style.display = "flex";
+    closeMenuIcon.style.display = "block";
+    menuIcon.style.display = "none";
+    header.style.animation = "abrirMenu .5s ease-in";
+});
+
+closeMenuIcon.addEventListener("click", () => {
+    
+    closeMenuIcon.style.display = "none";
+    menuIcon.style.display = "block";
+    header.style.display = "none";
+    header.style.animation = "cerrarMenu .5s ease-in-out";
+});
