@@ -11,10 +11,16 @@
 </head>
 
 <body>
-    <img src="icons/menu.svg" alt="Icono del menú" id="menu-icon" class="">
-    <img src="icons/close-menu.svg" alt="Icono de cerrar menú" id="close-menu-icon" class="">
     <header class="header" id="header">
-        <nav class="header-nav">
+        <div class="header-icons-container">
+            <button aria-label="boton para abrir el menu" aria-expanded="false" id="menu-button">
+                <img src="icons/menu.svg" alt="Icono del menú" id="menu-icon">
+            </button>
+            <a>
+                <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
+            </a>
+        </div>
+        <nav class="header-nav" id="header-nav">
             <ul class="header-nav-list">
                 <li class="header-nav-list-item"><a href="#principal">Inicio</a></li>
                 <li class="header-nav-list-item"><a href="#productos">Productos</a></li>
@@ -22,30 +28,41 @@
                 <li class="header-nav-list-item"><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-        <div class="header-icons">
-            <a>
-                <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
-            </a>
-            <a href="#">
-                <img src="icons/profile.svg" alt="Icono del perfil" class="header-profile">
-            </a>
-        </div>
-        <div class="cart-container hidden">
-            <h3>Carrito</h3>
-            <h4>No hay productos en tu carrito</h4>
-        </div>
-        <dialog id="confirmationDialog">
-            <p>¿Estás seguro de que deseas vaciar el carrito?</p>
-            <div>
-                <button id="confirmClearCart">Confirmar</button>
-                <button id="cancelClearCart">Cancelar</button>
-            </div>
-        </dialog>
     </header>
-
-    <div class="image-to-header"></div>
-
+    <!-- <div class="image-to-header"></div> -->
     <main>
+        <div class="cart-container hidden">
+            <div class="cart-container-title">
+                <h3 class="cart-title">Tu Carrito</h3>
+            </div>
+            <div class="cart-container-items">
+                <span class="cart-container-items-msg">No hay productos en tu carrito</span>
+            </div>
+            <div class="cart-container-discount">
+                <img src="icons/percent.svg" alt="descuento" class="discount-icon">
+                <input type="text" placeholder="Ingrese su cupon" class="discount-input">
+                <button id="apply-discount-button" onclick="applyDiscount()" class="discount-button">Aplicar</button>
+                <span class="discount-msg" id="discount-msg"> Los descuentos se pueden aplicar a partir de $400 </span>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-container-total">
+                    <span class="cart-total-price">TOTAL= $</span>
+                    <span class="cart-total-price hidden" id="discount-total">TOTAL CON DESCUENTO= $</span>
+                </div>
+                <div class="cart-container-clean">
+                    <button class="cart-remove-button" onclick="cleanCart()">
+                        <img src="icons/deleteCart.svg" alt="eliminar carrito" class="delete-cart-icon">
+                    </button>
+                </div>
+            </div>
+            <dialog id="confirmationDialog">
+                <p>¿Estás seguro de que deseas vaciar el carrito?</p>
+                <div>
+                    <button id="confirmClearCart">Confirmar</button>
+                    <button id="cancelClearCart">Cancelar</button>
+            </dialog>
+        </div>
+
         <section class="principal-section" id="principal">
             <div class="animation-container">
                 <div class="circle"></div>
