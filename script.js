@@ -11,18 +11,29 @@ const cartContainer = document.querySelector('.cart-container');
 const cartContainerItems = document.querySelector('.cart-container-items');
 const productsContainer = document.querySelector('.productos-section');
 const tendenciasContainer = document.querySelector('.tendencias-section');
+const nav = document.getElementById("header-nav");
+const menuIcon = document.getElementById("menu-icon");
+menuIcon.addEventListener("click", () => {
+    nav.classList.toggle("hidden-nav");
+});
 
 // CARGA DE PRODUCTOS EN LA PAG
 async function loadProducts() {
-    const response = await fetch('https://fakestoreapi.com/products');
-    const data = await response.json();
-    products.push(...data);
+    try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        products.push(...data);
 
-    data.forEach(product => {
-        // createProductElement(product, tendenciasContainer);
-        createProductElement(product, productsContainer);
-    });
-}
+        data.forEach(product => {
+            // createProductElement(product, tendenciasContainer);
+            createProductElement(product, productsContainer);
+        });
+    } catch (error) {
+        console.log(error);
+        productsContainer.innerHTML = `<h3>Error al cargar productos</h3>`;
+    }
+};
+
 
 // CREAR ELEMENTO PRODUCTO
 function createProductElement(product, container) {
@@ -34,11 +45,21 @@ function createProductElement(product, container) {
         <img src="${product.image}" alt="${product.title}">
         <h3>${product.title}</h3>
         <span class="producto-price">$ ${product.price} ${emojiAleatorio}</span> 
-        <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span> 
+        <span>${product.price < 30 ? `ultimos ${Math.floor(Math.random() * 10 + 2)} disponibles` : "nuevo"}</span>
         <button class="buy-button" onclick="addItem(${product.id})">Agregar al carrito</button>
-    `;
+        <div class="counter-container">
+        </div>
+        `;
     container.appendChild(producto);
 }
+
+// RENDER DE LOS PRODUCTOS
+function renderProducts(productsToRender, container) {
+    container.innerHTML = '';
+    productsToRender.forEach(product => createProductElement(product, container));
+}
+
+//FUNCIONES DEL CARRITO
 
 cartButton.addEventListener("click", () => {
     cartContainer.classList.toggle("hidden");
@@ -47,14 +68,18 @@ cartButton.addEventListener("click", () => {
 // GUARDAR CARRITO EN LOCALSTORAGE
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('total', total);
+    localStorage.setItem('total', calcularTotal());
 }
 
 // AGREGAR PRODUCTO AL CARRITO
 function addItem(id) {
     const product = products.find(p => p.id === id);
+    product.cant = 1;
     cart.push(product);
     total += product.price;
+    const productoActualizar = document.querySelector(`.producto[data-id="${id}"] button`);
+    productoActualizar.textContent = "Eliminar del carrito";
+    productoActualizar.onclick = () => removeItem(id);
     saveCart();
     updateCart();
 }
@@ -65,12 +90,69 @@ function removeItem(id) {
     if (product) {
         cart = cart.filter(p => p.id !== id);
         total -= product.price;
+        const productoActualizar = document.querySelector(`.producto[data-id="${id}"] button`);
+        productoActualizar.textContent = "Agregar al carrito";
+        productoActualizar.onclick = () => addItem(id);
         saveCart();
         updateCart();
     }
 }
 
+// SUMAR LA CANTIDAD DEL PRODUCTO
+function sumarCantidad(id) {
+    const product = cart.find(p => p.id === id);
+    if (product) {
+        product.cant = product.cant + 1;
+        saveCart();
+        updateCart();
+    }
+
+    if (discountApplied) {
+        resetDiscount();
+    }
+}
+
+// RESTAR EL CANTIDAD DEL PRODUCTO
+
+function restarCantidad(id) {
+    const product = cart.find(p => p.id === id);
+    if (product) {
+        product.cant = product.cant - 1;
+        saveCart();
+        updateCart();
+    }
+
+    if (product.cant === 0) {
+        removeItem(id);
+    }
+
+    if (discountApplied) {
+        resetDiscount();
+    }
+}
+
+// CALCULAR TOTAL
+
+function calcularTotal() {
+    return cart.map(product => product.price * product.cant).reduce((total, price) => total + price, 0);
+}
+
+//RESETEO DE DESCUENTO
+
+function resetDiscount() {
+    const discountMsg = document.getElementById('discount-msg');
+    const discountTotal = document.getElementById('discount-total');
+    const input = document.querySelector('.discount-input');
+
+    discountApplied = false;
+    discountTotal.classList.add("hidden");
+    lastDiscountApplied = 0;
+    discountMsg.textContent = "Los descuentos se pueden aplicar a partir de $400";
+    input.value = "";
+}
+
 // APLICAR DESCUENTO
+
 function applyDiscount() {
     const input = document.querySelector('.discount-input');
     const discount = parseFloat(input.value);
@@ -126,11 +208,11 @@ cancelClearCartButton.addEventListener('click', () => {
     confirmationDialog.close();
 });
 
-// ACTUALIZAR CARRITO
+// RENDER DEL CARRITO
 
 function updateCart() {
-    const totalPrice = total;
-    const totalWithDiscount = total - (total * (lastDiscountApplied / 100));
+    total = calcularTotal();
+    const totalPrice = calcularTotal();
     const totalMsg = document.querySelector(".cart-total-price");
 
     cartContainerItems.innerHTML = `
@@ -138,6 +220,11 @@ function updateCart() {
             ${cart.map(product => `
                 <div class="cart-item" data-id="${product.id}">
                     <img src="${product.image}" alt="${product.title}" class="cart-item-img">
+                    <div class="counter-container">
+                        <button class="counter-button" onclick=restarCantidad(${product.id})>-</button>
+                        <span class="counter-text"> ${product.cant} </span>
+                        <button class="counter-button" onclick=sumarCantidad(${product.id})>+</button>
+                    </div>
                     <h3 class="cart-item-title">${product.title.slice(0, 20)}${product.title.length > 20 ? "..." : ""}</h3>
                     <span class="cart-item-price">$ ${product.price}</span>
                     <button class="remove-item" data-id="${product.id}" onclick="removeItem(${product.id})">
@@ -151,15 +238,10 @@ function updateCart() {
     totalMsg.textContent = `TOTAL= $${totalPrice.toFixed(2)}`;
 }
 
-// BUSCAR FUNCTIONS
+// BUSCAR FUNCTION
 
 const buscarInput = document.querySelector('.buscar-input');
 const buscarButton = document.querySelector('.buscar-button');
-
-function renderProducts(productsToRender, container) {
-    container.innerHTML = '';
-    productsToRender.forEach(product => createProductElement(product, container));
-}
 
 function handleSearch() {
     const searchQuery = buscarInput.value.toLowerCase().trim();
@@ -194,7 +276,7 @@ buscarButton.addEventListener("click", (e) => {
     handleSearch();
 });
 
-// TESTIMONIOS
+// CARGA DETESTIMONIOS
 const testimonios = fetch('testimonios.json')
     .then(res => res.json())
     .then(data => {
@@ -221,11 +303,3 @@ cleanForm.addEventListener('click', (e) => {
 
 loadProducts();
 updateCart();
-
-const menuIcon = document.getElementById("menu-icon");
-const nav = document.getElementById("header-nav");
-
-menuIcon.addEventListener("click", () => {
-
-    nav.classList.toggle("hidden-nav");
-});

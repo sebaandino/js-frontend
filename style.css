@@ -292,8 +292,29 @@ body {
     padding: 3px;
 }
 
+.counter-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
+}
+
+.counter-button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--flame);
+    transition: transform .2s linear;
+
+    &:hover{
+        transform: scale(1.3);
+    }
+}
+
 .cart-item-price {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     text-wrap: nowrap;
 }
 
@@ -304,8 +325,11 @@ body {
 
 .cart-trash-icon {
     cursor: pointer;
-}
 
+    &:hover {
+        filter: drop-shadow(0 0 3px red);
+    }
+}
 
 .cart-container-discount {
     display: flex;
