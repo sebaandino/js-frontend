@@ -303,3 +303,53 @@ cleanForm.addEventListener('click', (e) => {
 
 loadProducts();
 updateCart();
+
+const themeSwitch = document.getElementById("input-theme");
+const moonIcon = document.querySelector(".moon-icon");
+const sunIcon = document.querySelector(".sun-icon");
+
+const theme = (() => {
+    if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("theme")
+    ) {
+        return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+    }
+    return "light";
+})();
+
+themeSwitch.addEventListener('change', () => {
+    localStorage.getItem('theme');
+
+    if ( themeSwitch.checked ) {
+        localStorage.setItem('theme', 'dark');
+        document.body.classList.add('dark');
+        moonIcon.classList.remove("disappear");
+        sunIcon.classList.add("disappear");
+    } else {
+        localStorage.setItem('theme', 'light')
+        document.body.classList.remove('dark');
+        moonIcon.classList.add("disappear");
+        sunIcon.classList.remove("disappear");
+    }
+});
+
+function checkTheme () { 
+    if (theme === "dark") {
+        themeSwitch.checked = true;
+        document.body.classList.add("dark");
+        localStorage.setItem('theme', 'dark');
+        sunIcon.classList.toggle("disappear");
+    } else {
+        themeSwitch.checked = false;
+        document.body.classList.add("light");
+        localStorage.setItem('theme', 'light');
+        moonIcon.classList.toggle("disappear");
+    }
+}
+
+checkTheme();
+
