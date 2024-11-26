@@ -20,14 +20,14 @@
                 <img src="icons/cart.svg" alt="Icono del carrito" id="cart-icon">
             </a>
             <a>
-                <img src="icons/profile.svg" alt="Icono del usuario" id="user-icon">
+                <img src="icons/profile.svg" alt="Icono del usuario" id="profile-icon">
             </a>
-                <label for="input-theme" class="switch">
-                    <!-- <span class="slider"></span> -->
-                    <img src="icons/sun.svg" alt="Icono del tema oscuro" class="sun-icon">
-                    <input type="checkbox" id="input-theme">
-                    <img src="icons/moon.svg" alt="Icono del tema claro" class="moon-icon">
-                </label>
+            <label for="input-theme" class="switch">
+                <!-- <span class="slider"></span> -->
+                <img src="icons/sun.svg" alt="Icono del tema oscuro" class="sun-icon">
+                <input type="checkbox" id="input-theme">
+                <img src="icons/moon.svg" alt="Icono del tema claro" class="moon-icon">
+            </label>
         </div>
         <nav class="header-nav" id="header-nav">
             <ul class="header-nav-list">
@@ -40,9 +40,33 @@
     </header>
     <!-- <div class="image-to-header"></div> -->
     <main>
-
-        
-
+        <div class="profile-container hidden">
+            <div class="profile-container-content">
+                <div class="profile-container-title">
+                    <h3 class="profile-title">Tu perfil</h3>
+                </div>
+                <!-- <div class="profile-log-info"> -->
+                <form action="" class="profile-form">
+                    <div class="info-container">
+                        <input type="email" id="profile-email-input" class="profile-email-input profile-input"
+                            name="email" />
+                        <label for="email" class="profile-email-label profile-label">Email</label>
+                    </div>
+                    <div class="info-container">
+                        <input type="password" id="profile-password" class=" profile-password-input profile-input"
+                            name="password" />
+                        <label for="password" class="profile-label">Contraseña</label>
+                    </div>
+                    <span>Todavia no tenes tu cuenta?
+                        <a>Registrate!</a>
+                    </span>
+                    <span> Olvidaste tu contraseña?
+                        <a>Recuperala.</a>
+                    </span>
+                    <button type="submit" id="profile-submit" class="profile-submit-button">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
         <div class="cart-container hidden">
             <div class="cart-container-title">
                 <h3 class="cart-title">Tu Carrito</h3>
