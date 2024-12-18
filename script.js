@@ -4,6 +4,7 @@ let total = parseFloat(localStorage.getItem('total')) || 0;
 let totalWithDiscount = 0;
 let lastDiscountApplied = 0;
 let discountApplied = false;
+let isLoggedIn = false;
 
 const emojis = ["💰", "🔥", "✨", "🎯", "🚀", "💎", "🎉", "⭐", "🔖", "⚡"];
 const cartButton = document.getElementById('cart-icon');
@@ -301,8 +302,7 @@ cleanForm.addEventListener('click', (e) => {
     document.querySelector('.formulario-msg').reset();
 });
 
-loadProducts();
-updateCart();
+// SWITCH THEME
 
 const themeSwitch = document.getElementById("input-theme");
 const moonIcon = document.querySelector(".moon-icon");
@@ -326,12 +326,12 @@ themeSwitch.addEventListener('change', () => {
 
     if ( themeSwitch.checked ) {
         localStorage.setItem('theme', 'dark');
-        document.body.classList.add('dark');
+        document.documentElement.classList.add('dark');
         moonIcon.classList.remove("disappear");
         sunIcon.classList.add("disappear");
     } else {
         localStorage.setItem('theme', 'light')
-        document.body.classList.remove('dark');
+        document.documentElement.classList.remove('dark');
         moonIcon.classList.add("disappear");
         sunIcon.classList.remove("disappear");
     }
@@ -340,16 +340,26 @@ themeSwitch.addEventListener('change', () => {
 function checkTheme () { 
     if (theme === "dark") {
         themeSwitch.checked = true;
-        document.body.classList.add("dark");
+        document.documentElement.classList.add("dark");
         localStorage.setItem('theme', 'dark');
         sunIcon.classList.toggle("disappear");
     } else {
         themeSwitch.checked = false;
-        document.body.classList.add("light");
+        document.documentElement.classList.add("light");
         localStorage.setItem('theme', 'light');
         moonIcon.classList.toggle("disappear");
     }
 }
 
+loadProducts();
+updateCart();
 checkTheme();
 
+// PROFILE
+
+const profileIcon = document.getElementById("profile-icon");
+const userContainer = document.querySelector(".profile-container");
+
+profileIcon.addEventListener("click", () => {
+    userContainer.classList.toggle("hidden");
+});

@@ -150,20 +150,21 @@ table {
 }
 
 html {
-    background-color: #8EC5FC;
+    background-color: #000000dd;
     background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
     background-attachment: fixed;
     scroll-behavior: smooth;
     box-sizing: border-box;
     overflow-x: hidden;
+    color: #040400;
+    transition: all .5s ease-in-out;
 }
 
 body {
     font-family: 'Roboto Condensed', sans-serif;
-    color: #040400;
 }
 
-body.dark {
+.dark {
     background-color: #181212;
     background-image: linear-gradient(225deg, #0f0b0b 0%, #3a2d2d 50%, #040400 100%);
     background-repeat: no-repeat;
@@ -177,7 +178,7 @@ body.dark {
     }
 }
 
-body.dark .header {
+.dark .header {
     color: #fff;
 }
 
@@ -193,7 +194,7 @@ body.dark .header {
 
 .header-icons-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -204,6 +205,10 @@ body.dark .header {
 }
 
 #cart-icon {
+    cursor: pointer;
+}
+
+#profile-icon {
     cursor: pointer;
 }
 
@@ -257,6 +262,11 @@ body.dark .header {
         display: flex;
     }
 
+    .header-icons-container {
+        width: 30%;
+        justify-content: space-evenly;
+    }
+
     .header-nav-list {
         flex-direction: row;
     }
@@ -304,6 +314,124 @@ body.dark .header {
     }
 }
 
+/* perfil */
+
+.profile-container {
+    background-color: var(--floral-white);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    color: var(--eerie-black);
+}
+
+.profile-container-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-container-title {
+    align-content: center;
+}
+
+.profile-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-wrap: nowrap;
+}
+
+.profile-log-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-input {
+    background-color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+    box-shadow: inset 1px -1px 3px #00000083;
+    transition: box-shadow .4s ease-in-out;
+}
+
+.profile-label {
+    position: absolute;
+    color: #00000099;
+    font-size: .9rem;
+    transition: all .4s ease-in-out;
+    transform: translateY(-5px);
+    backdrop-filter: blur(4px);
+}
+
+.profile-email-input:focus {
+    box-shadow: -1px 1px 3px #00000083;
+
+    &~label {
+        transform: translateX(130px) translateY(-10px);
+        color: #000000aa;
+        font-size: 1.2rem;
+    }
+}
+
+.profile-password-input:focus {
+    box-shadow: -1px 1px 3px #00000083;
+
+    &~label {
+        transform: translateX(110px) translateY(-10px);
+        color: #000000aa;
+        font-size: 1.2rem;
+    }
+}
+
+.profile-form  span > a {
+    color: cornflowerblue;
+    cursor: pointer;
+}
+
+.profile-submit-button {
+    background-color: var(--flame);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: -1px 1px 3px #000;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .profile-container{
+        width: 50%;
+        justify-self: center;
+    }
+
+    .profile-container-content {
+        justify-items: center;
+    }
+    
+}
+
 /* carrito */
 
 .cart-container {
@@ -313,7 +441,8 @@ body.dark .header {
     gap: 20px;
     padding: 20px;
     align-items: center;
-    border-radius: 0 0 20px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
     color: var(--eerie-black);
 }
 
@@ -333,7 +462,8 @@ body.dark .header {
     overflow-y: scroll;
     scrollbar-color: var(--flame) transparent;
     scrollbar-width: thin;
-    box-shadow: -1px 2px 5px #aeadad;
+    box-shadow: -1px 1px 3px #000;
+
 }
 
 .cart-item {
@@ -409,6 +539,13 @@ body.dark .header {
     border-radius: 20px;
     padding: 10px 20px;
     background-color: white;
+    outline: none;
+    transition: all .3s ease-in-out;
+
+    &:focus {
+        box-shadow: -1px 1px 3px #000;
+    }
+
 }
 
 .discount-button {
@@ -418,6 +555,7 @@ body.dark .header {
     border-radius: 20px;
     color: #fff;
     cursor: pointer;
+    box-shadow: -1px 1px 3px #000;
 }
 
 .cart-footer {
@@ -436,6 +574,7 @@ body.dark .header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    box-shadow: -1px 1px 3px #000;
 }
 
 @media screen and (min-width: 1000px) {
@@ -474,51 +613,10 @@ body.dark .header {
 
 /* main */
 
-/* .image-to-header {
-    background-image: linear-gradient(160deg, #d8c9ab 0%, #bf802e 50%, #252422ff 100%);
-    width: 100%;
-    height: 100dvh;
-    position: absolute;
-    z-index: 50;
-    animation-name: revealBackground;
-    animation-timeline: scroll();
-    animation-fill-mode: both;
-    animation-range-start: entry 15%;
-    animation-range-end: contain 50%;
-    opacity: 1;
-    overflow: hidden;
-}  */
-
-@media screen and (max-width: 1000px) {
-
-    .image-to-header {
-        background-image: linear-gradient(160deg, #d8c9ab 0%, #bf802e 50%, #0d4573 100%);
-        width: 100%;
-        height: 100dvh;
-        position: absolute;
-        z-index: 50;
-        animation-name: revealBackground;
-        animation-timeline: scroll();
-        animation-fill-mode: both;
-        animation-range-start: 0;
-        animation-range-end: contain 30%;
-        opacity: 1;
-    }
-
-}
-
-@keyframes revealBackground {
-    to {
-        height: 7dvh;
-        opacity: 0;
-    }
-
-}
-
 .principal-section {
     display: flex;
     flex-direction: column;
-    height: 70dvh;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     scroll-behavior: smooth;
@@ -979,6 +1077,8 @@ body.dark .header {
     border: none;
     border-radius: 20px;
     font-size: 1.2rem;
+    box-shadow: -1px 1px 3px #000;
+    outline: none;
 }
 
 .formulario-msg textarea {
@@ -989,16 +1089,20 @@ body.dark .header {
     font-size: 1.2rem;
     field-sizing: content;
     max-height: 150px;
+    box-shadow: -1px 1px 3px #000;
+
 }
 
 .formulario-msg button {
-    background-color: var(--timberwolf);
+    background-color: var(--floral-white);
     border: none;
     border-radius: 20px;
     padding: 10px;
     font-size: 1.2rem;
     margin-bottom: 10px;
     transition: all .3s ease-in-out;
+    box-shadow: -1px 1px 3px #000;
+
 }
 
 .formulario-msg button:hover {
